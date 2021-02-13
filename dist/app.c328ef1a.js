@@ -131,6 +131,12 @@ function upload(selector) {
   open.classList.add('btn');
   open.textContent = 'Открыть';
   input.insertAdjacentElement('afterend', open);
+
+  var triggerInput = function triggerInput() {
+    return input.click();
+  };
+
+  open.addEventListener('click', triggerInput);
 }
 },{}],"app.js":[function(require,module,exports) {
 "use strict";

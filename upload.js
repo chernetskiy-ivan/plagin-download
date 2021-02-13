@@ -6,4 +6,8 @@ export function upload(selector) {
     open.textContent = 'Открыть'
 
     input.insertAdjacentElement('afterend', open)
+
+    const triggerInput = () => input.click()
+    
+    open.addEventListener('click', triggerInput)
 }
