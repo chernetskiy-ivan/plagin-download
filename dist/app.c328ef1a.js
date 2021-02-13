@@ -136,7 +136,12 @@ function upload(selector) {
     return input.click();
   };
 
+  var changeHandler = function changeHandler(event) {
+    console.log(event.target.files);
+  };
+
   open.addEventListener('click', triggerInput);
+  input.addEventListener('change', changeHandler);
 }
 },{}],"app.js":[function(require,module,exports) {
 "use strict";

@@ -8,6 +8,10 @@ export function upload(selector) {
     input.insertAdjacentElement('afterend', open)
 
     const triggerInput = () => input.click()
-    
+    const changeHandler = event => {
+        console.log(event.target.files)
+    }
+
     open.addEventListener('click', triggerInput)
+    input.addEventListener('change', changeHandler)
 }
