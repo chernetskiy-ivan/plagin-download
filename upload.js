@@ -18,7 +18,29 @@ export function upload(selector, options = {}) {
 
     const triggerInput = () => input.click()
     const changeHandler = event => {
-        console.log(event.target.files)
+        //если не выбрали ни одного файла
+        if(event.target.files.length === 0){
+            return
+        }
+
+        const files = Array.from(event.target.files)
+        //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
+        //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
+        files.forEach(file => {
+            if(!file.type.match('image')) {
+                return
+            }
+
+            const reader = new FileReader()
+
+            reader.onload = event => {
+                console.log(event.target.result)
+                input.insertAdjacentHTML('afterend', `<img src="${event.target.result}">`)
+            }
+
+            reader.readAsDataURL(file)
+        })
+
     }
 
     open.addEventListener('click', triggerInput)

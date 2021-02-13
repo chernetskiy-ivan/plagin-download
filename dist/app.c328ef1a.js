@@ -148,7 +148,28 @@ function upload(selector) {
   };
 
   var changeHandler = function changeHandler(event) {
-    console.log(event.target.files);
+    //если не выбрали ни одного файла
+    if (event.target.files.length === 0) {
+      return;
+    }
+
+    var files = Array.from(event.target.files); //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
+    //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
+
+    files.forEach(function (file) {
+      if (!file.type.match('image')) {
+        return;
+      }
+
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        console.log(event.target.result);
+        input.insertAdjacentHTML('afterend', "<img src=\"".concat(event.target.result, "\">"));
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
   open.addEventListener('click', triggerInput);
@@ -191,7 +212,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54505" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59608" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
