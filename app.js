@@ -1,3 +1,3 @@
-import './upload.js'
+import {upload} from './upload.js'
 
-console.log('app.js')
+upload('#file')

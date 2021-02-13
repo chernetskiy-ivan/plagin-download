@@ -118,13 +118,26 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"upload.js":[function(require,module,exports) {
-console.log('upload.js');
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.upload = upload;
+
+function upload(selector) {
+  var input = document.querySelector(selector);
+  var open = document.createElement('button');
+  open.classList.add('btn');
+  open.textContent = 'Открыть';
+  input.insertAdjacentElement('afterend', open);
+}
 },{}],"app.js":[function(require,module,exports) {
 "use strict";
 
-require("./upload.js");
+var _upload = require("./upload.js");
 
-console.log('app.js');
+(0, _upload.upload)('#file');
 },{"./upload.js":"upload.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
