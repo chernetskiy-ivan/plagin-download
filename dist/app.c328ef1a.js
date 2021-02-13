@@ -128,6 +128,8 @@ exports.upload = upload;
 function upload(selector) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var input = document.querySelector(selector);
+  var preview = document.createElement('div');
+  preview.classList.add('preview');
   var open = document.createElement('button');
   open.classList.add('btn');
   open.textContent = 'Открыть';
@@ -141,6 +143,7 @@ function upload(selector) {
     input.setAttribute('accept', options.accept.join(','));
   }
 
+  input.insertAdjacentElement('afterend', preview);
   input.insertAdjacentElement('afterend', open);
 
   var triggerInput = function triggerInput() {
@@ -164,8 +167,8 @@ function upload(selector) {
       var reader = new FileReader();
 
       reader.onload = function (event) {
-        console.log(event.target.result);
-        input.insertAdjacentHTML('afterend', "<img src=\"".concat(event.target.result, "\">"));
+        var src = event.target.result;
+        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                    <img src=\"".concat(src, "\" alt=\"").concat(file.name, "\"/>\n                </div>\n                "));
       };
 
       reader.readAsDataURL(file);
@@ -212,7 +215,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59608" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60542" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

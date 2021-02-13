@@ -52,4 +52,21 @@ input[type = file] {
     display: none;
 }
 
+.preview {
+    display: flex;
+    /*чтобы если не помещается - переносилось на след строку*/
+    flex-wrap: wrap;
+    padding: .5rem;
+}
+
+.preview-image {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+}
+
+.preview-image img {
+    width: 180px;
+    height: auto;
+}
+
 /*# sourceMappingURL=/theme.f91554c8.css.map */
