@@ -126,10 +126,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.upload = upload;
 
 function upload(selector) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var input = document.querySelector(selector);
   var open = document.createElement('button');
   open.classList.add('btn');
   open.textContent = 'Открыть';
+
+  if (options.multi) {
+    input.setAttribute('multiple', true);
+  }
+
   input.insertAdjacentElement('afterend', open);
 
   var triggerInput = function triggerInput() {
@@ -148,7 +154,9 @@ function upload(selector) {
 
 var _upload = require("./upload.js");
 
-(0, _upload.upload)('#file');
+(0, _upload.upload)('#file', {
+  multi: true
+});
 },{"./upload.js":"upload.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

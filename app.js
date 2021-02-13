@@ -1,3 +1,5 @@
 import {upload} from './upload.js'
 
-upload('#file')
+upload('#file', {
+    multi: true
+})
