@@ -136,6 +136,11 @@ function upload(selector) {
     input.setAttribute('multiple', true);
   }
 
+  if (options.accept && Array.isArray(options.accept)) {
+    //значение данного атрибута строка через запятую
+    input.setAttribute('accept', options.accept.join(','));
+  }
+
   input.insertAdjacentElement('afterend', open);
 
   var triggerInput = function triggerInput() {
@@ -155,7 +160,8 @@ function upload(selector) {
 var _upload = require("./upload.js");
 
 (0, _upload.upload)('#file', {
-  multi: true
+  multi: true,
+  accept: ['.png', '.jpg', '.jpeg', '.gif']
 });
 },{"./upload.js":"upload.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];

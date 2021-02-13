@@ -9,6 +9,11 @@ export function upload(selector, options = {}) {
         input.setAttribute('multiple', true)
     }
 
+    if(options.accept && Array.isArray(options.accept)) {
+        //значение данного атрибута строка через запятую
+        input.setAttribute('accept', options.accept.join(','))
+    }
+
     input.insertAdjacentElement('afterend', open)
 
     const triggerInput = () => input.click()

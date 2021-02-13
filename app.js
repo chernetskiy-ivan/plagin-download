@@ -1,5 +1,6 @@
 import {upload} from './upload.js'
 
 upload('#file', {
-    multi: true
+    multi: true,
+    accept: ['.png', '.jpg', '.jpeg', '.gif']
 })
