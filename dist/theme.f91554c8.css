@@ -48,4 +48,8 @@ body {
     opacity: 0.8;
 }
 
+input[type = file] {
+    display: none;
+}
+
 /*# sourceMappingURL=/theme.f91554c8.css.map */
