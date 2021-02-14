@@ -159,6 +159,7 @@ function upload(selector) {
     var files = Array.from(event.target.files); //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
     //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
 
+    preview.innerHTML = '';
     files.forEach(function (file) {
       if (!file.type.match('image')) {
         return;
@@ -215,7 +216,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60542" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63907" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

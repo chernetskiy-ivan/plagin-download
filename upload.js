@@ -30,6 +30,7 @@ export function upload(selector, options = {}) {
         const files = Array.from(event.target.files)
         //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
         //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
+        preview.innerHTML = ''
         files.forEach(file => {
             if(!file.type.match('image')) {
                 return
