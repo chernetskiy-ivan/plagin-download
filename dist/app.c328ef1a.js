@@ -134,6 +134,7 @@ function bytesToSize(bytes) {
 
 function upload(selector) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var files = [];
   var input = document.querySelector(selector);
   var preview = document.createElement('div');
   preview.classList.add('preview');
@@ -163,7 +164,7 @@ function upload(selector) {
       return;
     }
 
-    var files = Array.from(event.target.files); //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
+    files = Array.from(event.target.files); //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
     //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
 
     preview.innerHTML = '';
@@ -176,7 +177,7 @@ function upload(selector) {
 
       reader.onload = function (event) {
         var src = event.target.result;
-        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                <div class=\"preview-remove\" data-name=\"".concat(file.name, "\">&times;</div>\n                    <img src=\"").concat(src, "\" alt=\"").concat(file.name, "\"/>\n                    <div class=\"preview-info\">\n                        <span>").concat(file.name, "</span>\n                        ").concat(bytesToSize(file.size), "\n                    </div>\n                </div>\n                "));
+        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                    <div class=\"preview-remove\" data-name=\"".concat(file.name, "\">&times;</div>\n                    <img src=\"").concat(src, "\" alt=\"").concat(file.name, "\"/>\n                    <div class=\"preview-info\">\n                        <span>").concat(file.name, "</span>\n                        ").concat(bytesToSize(file.size), "\n                    </div>\n                </div>\n                "));
       };
 
       reader.readAsDataURL(file);
@@ -189,7 +190,11 @@ function upload(selector) {
     }
 
     var name = event.target.dataset.name;
-    console.log(name);
+    files = files.filter(function (file) {
+      return file.name !== name;
+    });
+    var block = document.querySelector("[data-name=\"".concat(name, "\"]")).closest('.preview-image');
+    block.remove();
   };
 
   open.addEventListener('click', triggerInput);

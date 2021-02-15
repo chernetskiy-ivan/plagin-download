@@ -6,6 +6,7 @@ function bytesToSize(bytes) {
 }
 
 export function upload(selector, options = {}) {
+    let files = []
     const input = document.querySelector(selector)
     const preview = document.createElement('div')
 
@@ -34,7 +35,7 @@ export function upload(selector, options = {}) {
             return
         }
 
-        const files = Array.from(event.target.files)
+        files = Array.from(event.target.files)
         //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
         //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
         preview.innerHTML = ''
@@ -49,7 +50,7 @@ export function upload(selector, options = {}) {
                 const src = event.target.result
                 preview.insertAdjacentHTML('afterbegin', `
                 <div class="preview-image">
-                <div class="preview-remove" data-name="${file.name}">&times;</div>
+                    <div class="preview-remove" data-name="${file.name}">&times;</div>
                     <img src="${src}" alt="${file.name}"/>
                     <div class="preview-info">
                         <span>${file.name}</span>
@@ -70,7 +71,10 @@ export function upload(selector, options = {}) {
         }
 
         const name = event.target.dataset.name
-        console.log(name)
+        files = files.filter(file => file.name !== name)
+
+        const block = document.querySelector(`[data-name="${name}"]`).closest('.preview-image')
+        block.remove()
     }
 
     open.addEventListener('click', triggerInput)
