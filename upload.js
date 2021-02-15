@@ -44,6 +44,10 @@ export function upload(selector, options = {}) {
                 <div class="preview-image">
                 <div class="preview-remove">&times;</div>
                     <img src="${src}" alt="${file.name}"/>
+                    <div class="preview-info">
+                        <span>${file.name}</span>
+                        ${file.size}
+                    </div>
                 </div>
                 `)
             }

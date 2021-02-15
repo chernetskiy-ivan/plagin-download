@@ -169,7 +169,7 @@ function upload(selector) {
 
       reader.onload = function (event) {
         var src = event.target.result;
-        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                <div class=\"preview-remove\">&times;</div>\n                    <img src=\"".concat(src, "\" alt=\"").concat(file.name, "\"/>\n                </div>\n                "));
+        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                <div class=\"preview-remove\">&times;</div>\n                    <img src=\"".concat(src, "\" alt=\"").concat(file.name, "\"/>\n                    <div class=\"preview-info\">\n                        <span>").concat(file.name, "</span>\n                        ").concat(file.size, "\n                    </div>\n                </div>\n                "));
       };
 
       reader.readAsDataURL(file);
