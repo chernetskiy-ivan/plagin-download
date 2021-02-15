@@ -125,6 +125,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.upload = upload;
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function bytesToSize(bytes) {
   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
   if (bytes == 0) return '0 Byte';
@@ -132,15 +144,31 @@ function bytesToSize(bytes) {
   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
+var element = function element(tag) {
+  var classes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var content = arguments.length > 2 ? arguments[2] : undefined;
+  var node = document.createElement(tag);
+
+  if (classes.length) {
+    var _node$classList;
+
+    (_node$classList = node.classList).add.apply(_node$classList, _toConsumableArray(classes));
+  }
+
+  if (content) {
+    node.textContent = content;
+  }
+
+  return node;
+};
+
 function upload(selector) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var files = [];
   var input = document.querySelector(selector);
-  var preview = document.createElement('div');
-  preview.classList.add('preview');
-  var open = document.createElement('button');
-  open.classList.add('btn');
-  open.textContent = 'Открыть';
+  var preview = element('div', 'preview');
+  var open = element('button', ['btn'], 'Открыть');
+  var upload = element('button', ['btn', 'primary'], 'Загрузить');
 
   if (options.multi) {
     input.setAttribute('multiple', true);
@@ -152,6 +180,7 @@ function upload(selector) {
   }
 
   input.insertAdjacentElement('afterend', preview);
+  input.insertAdjacentElement('afterend', upload);
   input.insertAdjacentElement('afterend', open);
 
   var triggerInput = function triggerInput() {
