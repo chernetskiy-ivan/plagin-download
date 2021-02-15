@@ -60,11 +60,32 @@ input[type = file] {
 }
 
 .preview-image {
+    position: relative;
     margin-right: .5rem;
     margin-bottom: .5rem;
+}
+
+.preview-image:hover .preview-remove {
+    opacity: 1;
 }
 
 .preview-image img {
     width: 180px;
     height: auto;
+}
+
+.preview-remove {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+    background: rgba(255, 255, 255, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity .22s;
 }

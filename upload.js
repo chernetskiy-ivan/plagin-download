@@ -42,6 +42,7 @@ export function upload(selector, options = {}) {
                 const src = event.target.result
                 preview.insertAdjacentHTML('afterbegin', `
                 <div class="preview-image">
+                <div class="preview-remove">&times;</div>
                     <img src="${src}" alt="${file.name}"/>
                 </div>
                 `)
