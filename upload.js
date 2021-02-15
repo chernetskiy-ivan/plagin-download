@@ -74,7 +74,8 @@ export function upload(selector, options = {}) {
         files = files.filter(file => file.name !== name)
 
         const block = document.querySelector(`[data-name="${name}"]`).closest('.preview-image')
-        block.remove()
+        block.classList.add('removing')
+        setTimeout( () => block.remove(), 300)
     }
 
     open.addEventListener('click', triggerInput)

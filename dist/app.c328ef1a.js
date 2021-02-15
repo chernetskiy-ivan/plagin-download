@@ -194,7 +194,10 @@ function upload(selector) {
       return file.name !== name;
     });
     var block = document.querySelector("[data-name=\"".concat(name, "\"]")).closest('.preview-image');
-    block.remove();
+    block.classList.add('removing');
+    setTimeout(function () {
+      return block.remove();
+    }, 300);
   };
 
   open.addEventListener('click', triggerInput);
