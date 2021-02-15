@@ -176,15 +176,25 @@ function upload(selector) {
 
       reader.onload = function (event) {
         var src = event.target.result;
-        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                <div class=\"preview-remove\">&times;</div>\n                    <img src=\"".concat(src, "\" alt=\"").concat(file.name, "\"/>\n                    <div class=\"preview-info\">\n                        <span>").concat(file.name, "</span>\n                        ").concat(bytesToSize(file.size), "\n                    </div>\n                </div>\n                "));
+        preview.insertAdjacentHTML('afterbegin', "\n                <div class=\"preview-image\">\n                <div class=\"preview-remove\" data-name=\"".concat(file.name, "\">&times;</div>\n                    <img src=\"").concat(src, "\" alt=\"").concat(file.name, "\"/>\n                    <div class=\"preview-info\">\n                        <span>").concat(file.name, "</span>\n                        ").concat(bytesToSize(file.size), "\n                    </div>\n                </div>\n                "));
       };
 
       reader.readAsDataURL(file);
     });
   };
 
+  var removeHandler = function removeHandler(event) {
+    if (!event.target.dataset.name) {
+      return;
+    }
+
+    var name = event.target.dataset.name;
+    console.log(name);
+  };
+
   open.addEventListener('click', triggerInput);
   input.addEventListener('change', changeHandler);
+  preview.addEventListener('click', removeHandler);
 }
 },{}],"app.js":[function(require,module,exports) {
 "use strict";
