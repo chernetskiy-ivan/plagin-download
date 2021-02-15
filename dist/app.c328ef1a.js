@@ -166,9 +166,11 @@ function upload(selector) {
   var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   var files = [];
   var input = document.querySelector(selector);
-  var preview = element('div', 'preview');
+  var preview = element('div', ['preview']);
   var open = element('button', ['btn'], 'Открыть');
-  var upload = element('button', ['btn', 'primary'], 'Загрузить');
+  var upload = element('button', ['btn', 'primary'], 'Загрузить'); //по умолчанию не видна
+
+  upload.style.display = 'none';
 
   if (options.multi) {
     input.setAttribute('multiple', true);
@@ -197,6 +199,7 @@ function upload(selector) {
     //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
 
     preview.innerHTML = '';
+    upload.style.display = 'inline';
     files.forEach(function (file) {
       if (!file.type.match('image')) {
         return;
@@ -222,6 +225,11 @@ function upload(selector) {
     files = files.filter(function (file) {
       return file.name !== name;
     });
+
+    if (!files.length) {
+      upload.style.display = 'none';
+    }
+
     var block = document.querySelector("[data-name=\"".concat(name, "\"]")).closest('.preview-image');
     block.classList.add('removing');
     setTimeout(function () {
@@ -229,9 +237,12 @@ function upload(selector) {
     }, 300);
   };
 
+  var uploadHandler = function uploadHandler() {};
+
   open.addEventListener('click', triggerInput);
   input.addEventListener('change', changeHandler);
   preview.addEventListener('click', removeHandler);
+  uploat.addEventListener('click', uploadHandler);
 }
 },{}],"app.js":[function(require,module,exports) {
 "use strict";
@@ -270,7 +281,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65322" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51686" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

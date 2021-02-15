@@ -22,9 +22,11 @@ const element = (tag, classes = [],content) => {
 export function upload(selector, options = {}) {
     let files = []
     const input = document.querySelector(selector)
-    const preview = element('div','preview')
+    const preview = element('div',['preview'])
     const open = element('button', ['btn'], 'Открыть')
     const upload = element('button', ['btn','primary'], 'Загрузить')
+    //по умолчанию не видна
+    upload.style.display = 'none'
 
     if(options.multi) {
         input.setAttribute('multiple', true)
@@ -50,6 +52,7 @@ export function upload(selector, options = {}) {
         //ES6 const {files} = event.target и что ВАЖНО FILES НЕ ЯВЛЯЕТСЯ МАССИВОМ НО МЕТОД FROM()
         //ГЛОБАЛЬНОГО КЛАССА ARRAY ПРИВОДИТ FILES К МАССИВУ
         preview.innerHTML = ''
+        upload.style.display = 'inline'
         files.forEach(file => {
             if(!file.type.match('image')) {
                 return
@@ -84,12 +87,21 @@ export function upload(selector, options = {}) {
         const name = event.target.dataset.name
         files = files.filter(file => file.name !== name)
 
+        if(!files.length) {
+            upload.style.display = 'none'
+        }
+
         const block = document.querySelector(`[data-name="${name}"]`).closest('.preview-image')
         block.classList.add('removing')
         setTimeout( () => block.remove(), 300)
     }
 
+    const uploadHandler = () => {
+
+    }
+
     open.addEventListener('click', triggerInput)
     input.addEventListener('change', changeHandler)
     preview.addEventListener('click', removeHandler)
+    uploat.addEventListener('click', uploadHandler)
 }

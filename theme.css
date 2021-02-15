@@ -98,7 +98,6 @@ input[type = file] {
 }
 
 .preview-info {
-
     position: absolute;
     right: 0;
     bottom: -50px;
