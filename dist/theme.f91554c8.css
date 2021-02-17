@@ -122,9 +122,11 @@ input[type = file] {
     top: 0;
     bottom: 0;
     background: #42b983;
-    text-align: center;
     transition: width .22s;
     width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*# sourceMappingURL=/theme.f91554c8.css.map */

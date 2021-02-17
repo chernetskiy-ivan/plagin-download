@@ -8678,7 +8678,7 @@ function upload(selector) {
     });
     var previewInfo = preview.querySelectorAll('.preview-info');
     previewInfo.forEach(clearBlock);
-    onUpload(files);
+    onUpload(files, previewInfo);
   };
 
   open.addEventListener('click', triggerInput);
@@ -8711,12 +8711,24 @@ _app.default.initializeApp(firebaseConfig);
 
 var storage = _app.default.storage();
 
-console.log(storage);
 (0, _upload.upload)('#file', {
   multi: true,
   accept: ['.png', '.jpg', '.jpeg', '.gif'],
-  onUpload: function onUpload(files) {
-    console.log('files', files);
+  onUpload: function onUpload(files, blocks) {
+    files.forEach(function (file, index) {
+      var ref = storage.ref("images/".concat(file.name));
+      var task = ref.put(file);
+      task.on('state_changed', function (snapshot) {
+        var percentage = (snapshot.bytesTransferred / snapshot.totalBytes * 100).toFixed(0) + '%';
+        var block = blocks[index].querySelector('.preview-info-progress');
+        block.textContent = percentage;
+        block.style.width = percentage;
+      }, function (error) {
+        console.log(error);
+      }, function () {
+        console.log('Complete');
+      });
+    });
   }
 });
 },{"firebase/app":"node_modules/firebase/app/dist/index.esm.js","firebase/storage":"node_modules/firebase/storage/dist/index.esm.js","./upload.js":"upload.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
