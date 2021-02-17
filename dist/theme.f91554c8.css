@@ -116,4 +116,15 @@ input[type = file] {
     bottom: 0;
 }
 
+.preview-info-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: #42b983;
+    text-align: center;
+    transition: width .22s;
+    width: 30%;
+}
+
 /*# sourceMappingURL=/theme.f91554c8.css.map */

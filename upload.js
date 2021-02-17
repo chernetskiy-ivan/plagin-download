@@ -19,8 +19,11 @@ const element = (tag, classes = [],content) => {
     return node
 }
 
+function noop() {}
+
 export function upload(selector, options = {}) {
     let files = []
+    const onUpload = options.onUpload ?? noop
     const input = document.querySelector(selector)
     const preview = element('div',['preview'])
     const open = element('button', ['btn'], 'Открыть')
@@ -96,12 +99,21 @@ export function upload(selector, options = {}) {
         setTimeout( () => block.remove(), 300)
     }
 
-    const uploadHandler = () => {
+    const clearBlock = el => {
+        //чтобы строка состояния уже стояла на месте(внизу)
+        el.style.bottom = '0px'
+        el.innerHTML = '<div class="preview-info-progress"></div>'
+    }
 
+    const uploadHandler = () => {
+        preview.querySelectorAll('.preview-remove').forEach(e => e.remove())
+        const previewInfo = preview.querySelectorAll('.preview-info')
+        previewInfo.forEach(clearBlock)
+        onUpload(files)
     }
 
     open.addEventListener('click', triggerInput)
     input.addEventListener('change', changeHandler)
     preview.addEventListener('click', removeHandler)
-    uploat.addEventListener('click', uploadHandler)
+    upload.addEventListener('click', uploadHandler)
 }
