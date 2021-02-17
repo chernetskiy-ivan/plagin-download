@@ -34,7 +34,10 @@ upload('#file', {
             }, error => {
                 console.log(error)
             }, () => {
-                console.log('Complete')
+                //срабатывает после завершения загрузки
+                task.snapshot.ref.getDownloadURL().then(url => {
+                    console.log('Download URL = ', url)
+                })
             })
         })
 

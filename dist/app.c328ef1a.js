@@ -8726,7 +8726,10 @@ var storage = _app.default.storage();
       }, function (error) {
         console.log(error);
       }, function () {
-        console.log('Complete');
+        //срабатывает после завершения загрузки
+        task.snapshot.ref.getDownloadURL().then(function (url) {
+          console.log('Download URL = ', url);
+        });
       });
     });
   }
